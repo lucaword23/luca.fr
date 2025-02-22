@@ -2,7 +2,7 @@ local repo = 'https://raw.githubusercontent.com/violin-suzutsuki/LinoriaLib/main
 local Library = loadstring(game:HttpGet(repo .. 'Library.lua'))()
 local ThemeManager = loadstring(game:HttpGet(repo .. 'addons/ThemeManager.lua'))()
 local SaveManager = loadstring(game:HttpGet(repo .. 'addons/SaveManager.lua'))()
-local Window = Library:CreateWindow({ Title = '                     luca.fr | Beta $                     ', AutoShow = true, TabPadding = 15, MenuFadeTime = 0.2 })
+local Window = Library:CreateWindow({ Title = '                      luca.fr                     ', AutoShow = true, TabPadding = 15, MenuFadeTime = 0.2 })
 local Tabs = { Main = Window:AddTab('Main'), Character = Window:AddTab('Character'), Visuals = Window:AddTab('Visuals'), Misc = Window:AddTab('Misc'), Players = Window:AddTab('Players'), ['UI Settings'] = Window:AddTab('UI Settings') }
 local GunMods = Tabs.Main:AddRightGroupbox('Gun Mods')
 local KillAura = Tabs.Main:AddRightGroupbox('Combat')
@@ -585,15 +585,12 @@ end)
 
 local killSayEnabled = false
 local killSayMessages = {
-    "mad.lol is a free script and u die to it..", 
-    "Must be hard without mad.lol 💔", 
-    "Why aim when mad.lol does it for you?",
-    "Bros not on mad.lol already 😂",
+    "you are horrid", 
+    "4 luca 💔", 
+    "you have no aim?",
+    "bro needs to get on luca.fr 😂",
     "Cant be me icl",
-    "cant win a hvh? maybe try /madlolhvh",
-    "if u wanna win hop in /madlolhvh",
-    "hey come on if u cant win get mad . lol",
-    "how to win a hvh? step 1 get mad . lol"
+    "cant win a hvh? too bad",
 }
 
 TargetingGroup:AddToggle("killsay", { 
@@ -2497,10 +2494,10 @@ function toggleDesync(state)
     desync.enabled = state
     if desync.enabled then
         workspace.CurrentCamera.CameraSubject = desync_setback
-        Library:Notify("Desync Enabled '" .. desync.mode .. "' Mad.lol $", 2)
+        Library:Notify("Desync Enabled '" .. desync.mode .. "' luca.fr", 2)
     else
         resetCamera()
-        Library:Notify("Desync Disabled '" .. desync.mode .. "' Mad.lol  $", 2)
+        Library:Notify("Desync Disabled '" .. desync.mode .. "' luca.fr", 2)
     end
 end
 
@@ -3419,7 +3416,7 @@ local webhook = Modifications:AddButton('Redeem Codes', function()
 
    for _, code in pairs(codes) do
        mainEvent:FireServer("EnterPromoCode", code)
-       Library:Notify("Trying code: " .. code .. " mad.lol | Private", 5)
+       Library:Notify("Trying code: " .. code .. " luca.fr | Private", 5)
        task.wait(4.2)
    end
 end)
@@ -4219,7 +4216,7 @@ getgenv().PlayerActions:AddButton('Execute Action', function()
                 voidTarget(targetPlayer)
             end
         else
-            Library:Notify("Equip a tool to use this function. | Mad.lol", 5)
+            Library:Notify("Equip a tool to use this function. | luca.fr", 5)
         end
     end
 end)
@@ -4685,7 +4682,7 @@ local WatermarkConnection = RunService.RenderStepped:Connect(function()
     local UptimeFormatted = string.format("%02d:%02d", math.floor(Uptime / 60), Uptime % 60)
     local GameName = getGameName(game.PlaceId)
 
-    Library:SetWatermark(("[ Mad.lol ] | $ Beta $ |  %s | %s (%d) | Uptime: %s | FPS %d | %d ms"):format(
+    Library:SetWatermark(("[ luca.fr ] | $ Beta $ |  %s | %s (%d) | Uptime: %s | FPS %d | %d ms"):format(
         Executor, GameName, game.PlaceId, UptimeFormatted, math.floor(FPS), Ping
     ))
 end)
