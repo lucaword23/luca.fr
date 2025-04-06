@@ -328,20 +328,20 @@ local function buyAmmo(gunName)
         currentTool.Parent = LocalPlayer.Backpack
     end
 
-    LocalPlayer.Character.HumanoidRootPart.CFrame = ammoItem.Head.CFrame * CFrame.new(0, 3.2, 0)
+    -- Teleport near the ammo item
+    LocalPlayer.Character.HumanoidRootPart.CFrame = ammoItem:WaitForChild("Head").CFrame * CFrame.new(0, 3.2, 0)
 
-    local clickDetector = ammoItem:FindFirstChild("ClickDetector")
-    if clickDetector then
+    -- Use ProximityPrompt instead of ClickDetector
+    local prompt = ammoItem:FindFirstChildWhichIsA("ProximityPrompt", true)
+    if prompt then
         for i = 1, 5 do
-            fireclickdetector(clickDetector)
-            task.wait(0)
+            fireproximityprompt(prompt)
+            task.wait(0.1)
         end
     end
 
-    if currentTool then
-        currentTool.Parent = LocalPlayer.Character
-    end
-
+    -- Optional: Teleport back to old position
+    task.wait(0.2)
     LocalPlayer.Character.HumanoidRootPart.CFrame = oldPosition
 end
 
