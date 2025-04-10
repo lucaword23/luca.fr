@@ -319,8 +319,19 @@ local function buyAmmo(gunName)
     if not ammoItemName then return end
 
     local ammoItem = ShopFolder:FindFirstChild(ammoItemName)
-    if not ammoItem then return end
+    if not ammoItem then
+        warn("Ammo item not found:", ammoItemName)
+        return
+    end
 
+    -- DEBUG: List all children and descendants
+    print("=== Descendants of", ammoItemName, "===")
+    for _, descendant in ipairs(ammoItem:GetDescendants()) do
+        print(descendant.ClassName, descendant.Name)
+    end
+    print("=== End of list ===")
+
+    -- Save current position
     local oldPosition = LocalPlayer.Character.HumanoidRootPart.CFrame
     local currentTool = LocalPlayer.Character:FindFirstChildOfClass("Tool")
 
@@ -328,30 +339,23 @@ local function buyAmmo(gunName)
         currentTool.Parent = LocalPlayer.Backpack
     end
 
-    -- Teleport near the ammo item
+    -- Teleport to the ammo item
     LocalPlayer.Character.HumanoidRootPart.CFrame = ammoItem:WaitForChild("Head").CFrame * CFrame.new(0, 3.2, 0)
 
-    -- First try ProximityPrompt
+    -- Try both prompt types
     local prompt = ammoItem:FindFirstChildWhichIsA("ProximityPrompt", true)
     if prompt then
-        for i = 1, 5 do
-            fireproximityprompt(prompt)
-            task.wait(0.1)
-        end
+        fireproximityprompt(prompt)
     else
-        -- Try ClickDetector fallback
         local clickDetector = ammoItem:FindFirstChildWhichIsA("ClickDetector", true)
         if clickDetector then
-            for i = 1, 5 do
-                fireclickdetector(clickDetector)
-                task.wait(0.1)
-            end
+            fireclickdetector(clickDetector)
         else
-            warn("No ProximityPrompt or ClickDetector found for:", ammoItemName)
+            warn("[ERROR] No ProximityPrompt or ClickDetector found in", ammoItemName)
         end
     end
 
-    -- Optional: Teleport back to old position
+    -- Go back
     task.wait(0.2)
     LocalPlayer.Character.HumanoidRootPart.CFrame = oldPosition
 end
