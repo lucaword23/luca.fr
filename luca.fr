@@ -331,12 +331,23 @@ local function buyAmmo(gunName)
     -- Teleport near the ammo item
     LocalPlayer.Character.HumanoidRootPart.CFrame = ammoItem:WaitForChild("Head").CFrame * CFrame.new(0, 3.2, 0)
 
-    -- Use ProximityPrompt instead of ClickDetector
+    -- First try ProximityPrompt
     local prompt = ammoItem:FindFirstChildWhichIsA("ProximityPrompt", true)
     if prompt then
         for i = 1, 5 do
             fireproximityprompt(prompt)
             task.wait(0.1)
+        end
+    else
+        -- Try ClickDetector fallback
+        local clickDetector = ammoItem:FindFirstChildWhichIsA("ClickDetector", true)
+        if clickDetector then
+            for i = 1, 5 do
+                fireclickdetector(clickDetector)
+                task.wait(0.1)
+            end
+        else
+            warn("No ProximityPrompt or ClickDetector found for:", ammoItemName)
         end
     end
 
